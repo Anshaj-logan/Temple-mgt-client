@@ -25,8 +25,8 @@ const Hearderpub = () => {
             </a>
           </li>
           <li>
-            <a className="nav-link scrollto" href="">
-           <Link to={'/login'}>Login</Link>   
+            <a className="nav-link scrollto" href="login">
+           Login 
             </a>
           </li>
           <li>
@@ -49,7 +49,7 @@ const Hearderpub = () => {
                 <a href=""><Link to={'/contact'}> Contact Us</Link></a>
               </li> */}
               <li>
-                <a href=""> <Link to={'/about'}> About</Link></a>
+                <a href="/about"> About</a>
               </li>
             </ul>
           </li>
@@ -57,8 +57,8 @@ const Hearderpub = () => {
         <i className="bi bi-list mobile-nav-toggle" />
       </nav>
       {/* .navbar */}
-      <a href="" className="book-a-table-btn scrollto">
-       <Link to={'/register'}>Register</Link> 
+      <a href="/register" className="book-a-table-btn scrollto">
+       Register 
       </a>
     </div>
   </header>

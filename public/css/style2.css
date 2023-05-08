@@ -30,7 +30,7 @@ input[type=text], input[type=password]{
     /* box-sizing: border-box; */
     padding: 14px 20px; 
      border-radius: 5px;
-    width: 100%;
+    width: 30%;
     height: 10%;
     font-size: 20px;
     font-family: ariel;

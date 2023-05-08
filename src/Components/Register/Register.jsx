@@ -1,98 +1,142 @@
 import React from 'react'
+import { useState } from 'react';
+import axios from 'axios'
+import {toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+  const [inputs, setInputs] = useState({
+    
+    name:"",
+    email:"",
+    username: "",
+    password: "",
+    phone_no:"",
+    house_name:"",
+    place:"",
+    pin:"",
+    
+    
+  });
+  const [formErrors, setformErrors] = useState({})
+  const [isSubmit, setIssubmit] = useState(false)
+  // const [passwordMatch, setPasswordMatch] = useState(true);
+
+  
+
+  const validate = (values)=>{
+    var error = {}
+    if(!values.name){
+      error.name ="Enter Name"
+    }
+    if(!values.username){
+      error.username ="Enter Username"
+    }
+    if(!values.password){
+      error.password ="Enter Password"
+    }
+    if(!values.company_name){
+      error.company_name ="Enter Company Name"
+    }
+    if(!values.house_name){
+      error.house_name ="Enter house name"
+    }
+    if(!values.email){
+      error.email ="Enter Your Email"
+    }
+    if(!values.phone_no){
+      error.phone_no ="Enter Phone Number"
+    }
+    if(!values.place){
+      error.place ="Enter Location"
+    }
+   
+   
+    if(!values.pin){
+      error.pin ="Enter Pincode"
+    }
+   
+    return error
+  }
+
+
+
+    const setRegister = (event) => {
+  
+      const name = event.target.name;
+      const value = event.target.value;   
+      setInputs({...inputs, [name]: value });
+      console.log(inputs);
+    };
+  
+    const registerSubmit = (event) => {
+      console.log(inputs);
+      event.preventDefault();
+      // if (inputs.password === inputs.cnf_password) {
+      //   // Passwords match, do something (e.g., submit form)
+      //   setPasswordMatch(true);
+      // } else {
+      //   // Passwords don't match, display an error message
+      //   setPasswordMatch(false);
+      // }
+      setformErrors(validate(inputs))
+    setIssubmit(true)
+    if(Object.keys(formErrors).length === 0 && isSubmit){
+      axios.post(' http://localhost:2000/api/register/',inputs).then((data)=>{
+        console.log(data);
+        // console.log(data.response.data.message);
+        toast(data.data.message, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        
+       
+      }).catch((err)=>{
+        console.log(err);
+        toast(err.response.data.message, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      })
+    }
+    };
   return (
     <div id="reg"style={{ backgroundImage: "url(img/images/diwali-.webp)"  }}>
-      {/* // <div className="form"> */}
-    {/* <h3>
-      &nbsp;&nbsp;<span>Register</span> here
-    </h3>
-    <br />
-    <div className="form-group">
-      <form>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Name"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="House Name"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Place"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Pin"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Phone"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Email"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Password"
-          required=""
-        />
-        <br />
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Confirm Password"
-          required=""
-        />
-        <br />
-        <br />
-        <p>
-          <button type="button" className="log-btn scrollto">
-            Submit
-          </button>
-        </p>
-        <br />
-        <br />
-      </form>
-    </div> */}
+    
 
 
 <div className="col-md-6">
-   {/* <div className="tile">  */}
+   
    <br/><br/><br/><br/><br/><br/>
     <h3 className="tile-title">
       Register
     </h3>
     <div className="tile-body">
-      <form className="form-horizontal">
+        <ToastContainer />
+  <form onSubmit={registerSubmit}>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <h3><v>Name</v></h3> */}
+           
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+            <span style={{color:"red"}} > {formErrors.name? formErrors.name :""}</span>
+        <input
+        name="name"
+        value={inputs.name || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,name:""})}}
               type="text"
               placeholder="Enter full name"
             />
@@ -100,11 +144,15 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <v>Email</v> */}
+           
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+             <span style={{color:"red"}} > {formErrors.email? formErrors.email :""}</span>
+        <input
+        name="email"
+        value={inputs.email || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,email:""})}}
               type="text"
               placeholder="Enter email address"
             />
@@ -115,8 +163,12 @@ const Register = () => {
             {/* <v>House Name</v> */}
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+             <span style={{color:"red"}} > {formErrors.house_name? formErrors.house_name :""}</span>
+        <input
+        name="house_name"
+        value={inputs.house_name || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,house_name:""})}}
               type="text"
               placeholder="Enter house name"
             />
@@ -124,11 +176,16 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <v>Place</v> */}
+           
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+          <span style={{color:"red"}} > {formErrors.place? formErrors.place :""}</span>
+        <input
+        name="place"
+        value={inputs.place || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,place:""})}}
+              
               type="text"
               placeholder="Enter place"
             />
@@ -136,11 +193,15 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <v>Pin</v> */}
+            
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+            <span style={{color:"red"}} > {formErrors.pin? formErrors.pin :""}</span>
+        <input
+        name="pin"
+        value={inputs.pin || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,pin:""})}}
               type="text"
               placeholder="Enter pin"
             />
@@ -148,11 +209,15 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <v>Phone</v> */}
+           
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+            <span style={{color:"red"}} > {formErrors.phone_no? formErrors.phone_no :""}</span>
+        <input
+        name="phone_no"
+        value={inputs.phone_no || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,phone_no:""})}}
               type="text"
               placeholder="Enter phone number"
             />
@@ -160,32 +225,47 @@ const Register = () => {
         </div>
         <div className="form-group row">
           <label className="control-label col-md-3">
-            {/* <v>Password</v> */}
+          
           </label>
           <div className="col-md-8">
-            <input
-              className="form-control"
+             <span style={{color:"red"}} > {formErrors.username? formErrors.username :""}</span>
+        <input
+        name="username"
+        value={inputs.username || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,username:""})}}
+              type="text"
+              placeholder="Enter User Name"
+            />
+          </div>
+        </div>
+       
+        <div className="form-group row">
+          <label className="control-label col-md-3">
+          
+          </label>
+          <div className="col-md-8">
+           <span style={{color:"red"}} > {formErrors.password? formErrors.password :""}</span>
+        <input
+        name="password"
+        value={inputs.password || ""}
+        onChange={setRegister} 
+        onClick={()=>{setformErrors({...formErrors,password:""})}}
               type="text"
               placeholder="Enter Password"
             />
           </div>
         </div>
+         <br />
+        <p>
+          <button type="submit" className="btn btn-success">
+            REGISTER
+          </button>
+        </p>
       </form>
     </div>
     <div className="tile-footer"><br/><br/>
-      <div className="row">
-        <div className="col-md-8 col-md-offset-3">
-       <a className="log-btn" href="#">
-            {/* <i className="fa fa-fw fa-lg fa-times-circle" /> */}
-            Register
-          </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a className="log-btn" href="#">
-            {/* <i className="fa fa-fw fa-lg fa-times-circle" /> */}
-            Cancel
-          </a>
-        </div>
-      </div>
+      
       <div className="row">
         <div className="col-md-8 col-md-offset-4"><br/><br/>
           </div></div>
