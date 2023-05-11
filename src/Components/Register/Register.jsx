@@ -35,9 +35,7 @@ const Register = () => {
     if(!values.password){
       error.password ="Enter Password"
     }
-    if(!values.company_name){
-      error.company_name ="Enter Company Name"
-    }
+   
     if(!values.house_name){
       error.house_name ="Enter house name"
     }
@@ -70,19 +68,15 @@ const Register = () => {
     };
   
     const registerSubmit = (event) => {
-      console.log(inputs);
+   
       event.preventDefault();
-      // if (inputs.password === inputs.cnf_password) {
-      //   // Passwords match, do something (e.g., submit form)
-      //   setPasswordMatch(true);
-      // } else {
-      //   // Passwords don't match, display an error message
-      //   setPasswordMatch(false);
-      // }
+   console.log(formErrors);
       setformErrors(validate(inputs))
+      console.log(Object.keys(formErrors).length);
     setIssubmit(true)
     if(Object.keys(formErrors).length === 0 && isSubmit){
-      axios.post(' http://localhost:2000/api/register/',inputs).then((data)=>{
+      console.log(inputs);
+      axios.post('http://localhost:2000/api/register/',inputs).then((data)=>{
         console.log(data);
         // console.log(data.response.data.message);
         toast(data.data.message, {

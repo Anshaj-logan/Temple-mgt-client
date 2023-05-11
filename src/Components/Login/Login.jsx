@@ -36,6 +36,7 @@ const navigate = useNavigate()
     setformErrors(validate(Input))
     setIssubmit(true)
     if(Object.keys(formErrors).length === 0 && isSubmit){
+      console.log("kooi");
       axios.post("http://localhost:2000/api/login/",Input).then((response)=>{
         console.log(response);
         if (response.data.success === true) {
@@ -43,7 +44,7 @@ const navigate = useNavigate()
             localStorage.setItem("name", response.data.username)
             localStorage.setItem("loginId", response.data.login_id)
             localStorage.setItem("role", response.data.role)
-            localStorage.setItem("student_id", response.data.student_id)
+            localStorage.setItem("user_id", response.data.student_id)
               sessionStorage.setItem("currentloggedin", response.data.name);
               navigate("/user")
           }
@@ -114,7 +115,7 @@ const navigate = useNavigate()
           <br />
           <br />
           <p>
-            <button type="button" className="log-btn scrollto">
+            <button type="submit" className="log-btn scrollto">
               Login
             </button>
           </p>
