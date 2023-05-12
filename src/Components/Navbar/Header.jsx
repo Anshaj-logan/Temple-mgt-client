@@ -1,7 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
+  const logout = ()=>{
+    localStorage.removeItem("name")
+    localStorage.removeItem("loginId")
+    localStorage.removeItem("role")
+    localStorage.removeItem("user_id")
+    navigate('/')
+  }
   return (
     <div><header
     id="header"
@@ -27,7 +35,7 @@ const Header = () => {
               Panchangam Calendar</Link>
             </a>
           </li> */}
-          <li className="dropdown">
+          {/* <li className="dropdown">
             <a href="#">
               <span>Poojas</span> <i className="bi bi-chevron-down" />
             </a>
@@ -39,7 +47,7 @@ const Header = () => {
                 <a href=""><Link to={'/schedule'}> Scheduled Poojas</Link></a>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>
             <a className="nav-link scrollto" href=""><Link to={'/donation'}>
               Donation
@@ -70,7 +78,15 @@ const Header = () => {
         <i className="bi bi-list mobile-nav-toggle" />
       </nav>
       <a href="" className="book-a-table-btn scrollto">
-       <Link to={'/book'}>  Schedule a Pooja</Link>
+       {/* <Link to={'/book'}>  Schedule a Pooja</Link> */}
+       <Link to={'/schedule'}>  Schedule a Pooja</Link>
+      </a>
+      <a href="" className="book-a-table-btn scrollto">
+       <Link to={'/bookings'}>  Bookings</Link>
+      </a>
+      <a  className="book-a-table-btn scrollto" onClick={logout} style={{backgroundColor:"red"}}>
+        Logout
+        
       </a>
     </div>
   </header>

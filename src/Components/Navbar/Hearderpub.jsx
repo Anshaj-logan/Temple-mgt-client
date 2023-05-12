@@ -1,7 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 const Hearderpub = () => {
+
+  const navigate = useNavigate()
+  const logout = ()=>{
+    localStorage.removeItem("name")
+    localStorage.removeItem("loginId")
+    localStorage.removeItem("role")
+    localStorage.removeItem("user_id")
+    navigate('/')
+  }
   return (
     <div><header
     id="header"
@@ -60,6 +69,7 @@ const Hearderpub = () => {
       <a href="/register" className="book-a-table-btn scrollto">
        Register 
       </a>
+      
     </div>
   </header>
   </div>

@@ -1,7 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Headeracc = () => {
+
+  const navigate = useNavigate()
+  const logout = ()=>{
+    localStorage.removeItem("name")
+    localStorage.removeItem("loginId")
+    localStorage.removeItem("role")
+    localStorage.removeItem("accountatnt_id")
+    navigate('/')
+
+  }
   return (
     <div>
       <header
@@ -130,6 +140,10 @@ const Headeracc = () => {
         </ul>
         {/* <i class="bi bi-list mobile-nav-toggle"></i> */}
       </nav>
+      <a  className="book-a-table-btn scrollto" onClick={logout} style={{backgroundColor:"red"}}>
+        Logout
+        
+      </a>
       {/* .navbar */}
       {/* <a href="#book-a-table" class="book-a-table-btn scrollto">Schedule a Pooja</a> */}
     </div>

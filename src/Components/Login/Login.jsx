@@ -48,14 +48,22 @@ const navigate = useNavigate()
               sessionStorage.setItem("currentloggedin", response.data.name);
               navigate("/user")
           }
-          // else if (response.data.role === "2") {
-          //   localStorage.setItem("name", response.data.username)
-          //   localStorage.setItem("loginId", response.data.login_id)
-          //   localStorage.setItem("role", response.data.role)
-          //   localStorage.setItem("company_id", response.data.company_id)
-          //   sessionStorage.setItem("currentloggedin", response.data.username);
-          //     navigate("/Company")
-          // }
+          else if (response.data.role === "2") {
+            localStorage.setItem("name", response.data.username)
+            localStorage.setItem("loginId", response.data.login_id)
+            localStorage.setItem("role", response.data.role)
+            localStorage.setItem("accountatnt_id", response.data.accountatnt_id)
+            sessionStorage.setItem("currentloggedin", response.data.username);
+              navigate("/accounts")
+          }
+          else if (response.data.role === "3") {
+            localStorage.setItem("name", response.data.username)
+            localStorage.setItem("loginId", response.data.login_id)
+            localStorage.setItem("role", response.data.role)
+            localStorage.setItem("staff_id", response.data.staff_id)
+            sessionStorage.setItem("currentloggedin", response.data.username);
+              navigate("/counterstaff")
+          }
          
       }
       }).catch((err)=>{

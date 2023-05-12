@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
 import {toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Scheduled = () => {
-  const navigate = useNavigate()
+const Viewpooja = () => {
+
   const [pooja, setpooja] = useState([]);
   console.log(pooja);
   useEffect(() => {
@@ -19,27 +18,39 @@ const Scheduled = () => {
         }
       });
   }, []);
-  const book_pooja = (id)=>{
-   navigate(`/book/${id}`)
+  const delete_pooja = (id)=>{
+    axios
+    .get(
+      `http://localhost:2000/api/pooja/delete/${id}`
+    )
+    .then((response) => {
+      if (response.data.success == true) {
+          window.location.reload()
+        }
+      })
       
     };
+  
   return (
-    <div id="schedulhero"
-    style={{ background:"#001714"
-    }}>
-        <br/><br/> <br/> <br/><br/>
-        <br/>
-        <div className="section-title">
-      <h2>
-        <f>Scheduled</f> <span>Pooja</span>
-      </h2>
-    </div>
-    <div className="col-md-12">
-      <div className="tile">
-        <div className="tile-body">
-          <div className="table-responsive">
-         
-          <table className="table table-hover table-bordered" id="sampleTable">
+
+    <div id="acchero"
+      style={{
+        background: "#001714"
+      }}>
+      <br /><br /> <br /> <br /><br />
+      <br />
+      <div className="section-title">
+        <h2>
+          <span>Poojas</span>
+        </h2>
+      </div>
+      <ToastContainer />
+      <div className="col-md-12">
+        <div className="tile">
+          <div className="tile-body">
+            <div className="table-responsive">
+
+              <table className="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
                     <th>slNo.</th>
@@ -57,7 +68,7 @@ const Scheduled = () => {
                       <td>{data.category}</td>
                       <td>{data.amound}</td>
                       <td><div className="text-center">
-                        <button type="submit" onClick={()=>{book_pooja(data._id)}} className='btn btn-primary'>Book</button>
+                        <button type="submit" onClick={()=>{delete_pooja(data._id)}} className='btn btn-danger'>Delete</button>
                         {/* <button type="submit">Book</button> */}
                       </div></td>
                     </tr>
@@ -65,12 +76,12 @@ const Scheduled = () => {
 
                 </tbody>
               </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   )
 }
 
-export default Scheduled
+export default Viewpooja

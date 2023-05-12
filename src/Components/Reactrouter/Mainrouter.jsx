@@ -40,6 +40,7 @@ import Balance_sheet from '../../Pages/Reports/Balance_sheet'
 import Poojaadd from '../../Pages/Staff/Poojaadd'
 import Poojaview from '../../Pages/Staff/Poojaview'
 import Notification from '../../Pages/User/Notification'
+import ViewBookings from '../../Pages/User/ViewBookings'
 
 
 const Mainrouter = () => {
@@ -52,7 +53,8 @@ const Mainrouter = () => {
      <Route path='/accounts' element={<Accounts/>}/>
      <Route path='/user' element={<User/>}/>
      <Route path='/counterstaff' element={<Counterstaff/>}/>
-     <Route path='/book' element={<Bookpooja/>}/>
+     <Route path='/book/:id' element={<Bookpooja/>}/>
+     <Route path='/bookings/' element={<ViewBookings/>}/>
      <Route path='/donation' element={<Donation/>}/>
      <Route path='/about' element={<Pubabout/>}/>
      <Route path='/contact' element={<PubContact/>}/>

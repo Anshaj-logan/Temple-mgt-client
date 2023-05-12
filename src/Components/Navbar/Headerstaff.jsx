@@ -1,7 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Headerstaff = () => {
+  const navigate = useNavigate()
+  const logout = ()=>{
+    localStorage.removeItem("name")
+    localStorage.removeItem("loginId")
+    localStorage.removeItem("role")
+    localStorage.removeItem("staff_id")
+    navigate('/')
+
+  }
   return (
     <div><header
     id="header"
@@ -93,6 +102,10 @@ const Headerstaff = () => {
       {/* .navbar */}
       <a href="" className="book-a-table-btn scrollto">
         <Link to={'/stafbook'}>Schedule a Pooja</Link>
+        
+      </a>
+      <a  className="book-a-table-btn scrollto" onClick={logout} style={{backgroundColor:"red"}}>
+        Logout
         
       </a>
     </div>
